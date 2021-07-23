@@ -1,0 +1,22 @@
+name: openGrow 
+type: sw.application
+description: >-
+  openGrow is an open source grow room management platform, utilizing node-red, grafana, and influxdb.
+joinable: false
+assets:
+  repository:
+    type: blob.asset
+    data:
+      url: 'https://github.com/nated0g/openGrow.git'
+data:
+  applicationEnvironmentVariables:
+    - PORT: 1880
+    - RELAY_SERVER_IP: 143.198.224.176
+    - RELAY_SERVER_PORT: 8080
+    - RELAY_SERVER_REMOTES:
+  defaultDeviceType: raspberry-pi
+  supportedDeviceTypes:
+    - raspberrypi3
+    - raspberrypi4-64
+    - fincm3
+version: 0.1.1
