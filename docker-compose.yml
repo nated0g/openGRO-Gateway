@@ -2,6 +2,8 @@ version: '2'
 volumes:
     node-red-data:
     influxdb-data:
+    settings:
+    grafana-dashboards:
 services:
   influxdb:
     build: influxdb
@@ -40,6 +42,8 @@ services:
     depends_on:
        - influxdb
     restart: always
+    volumes:
+      - 'grafana-dashboards:/var/lib/grafana/dashboards'
   mqtt:
     image: panuwitp/mosquitto-arm
     ports:
@@ -53,7 +57,7 @@ services:
     depends_on:
         - mqtt
     restart: always
-    network_mode: "host"
+    #network_mode: "host"
   nginx:
     build : nginx
     depends_on:
@@ -72,12 +76,23 @@ services:
       - RELAY_SERVER_PORT
       - RELAY_SERVER_REMOTES
     entrypoint: ["sh", "-c", "/app/chisel client ${RELAY_SERVER_IP}:${RELAY_SERVER_PORT} ${RELAY_SERVER_REMOTES}"]
-  wifi-connect:
-    build: ./wifi-connect
-    network_mode: "host"
-    labels:
-      io.balena.features.dbus: '1'
-    cap_add:
-      - NET_ADMIN
-    environment:
-       DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
+  # wifi-connect:
+  #  build: ./wifi-connect
+  #  network_mode: "host"
+  #  labels:
+  #    io.balena.features.dbus: '1'
+  #  cap_add:
+  #    - NET_ADMIN
+  #  environment:
+  #     DBUS_SYSTEM_BUS_ADDRESS: "unix:path=/host/run/dbus/system_bus_socket"
+  browser:
+    image: balenablocks/browser
+    privileged: true # required for UDEV to find plugged in peripherals such as a USB mouse
+    network_mode: host
+    depends_on:
+      - nginx
+    ports:
+        - '5011' # management API (optional)
+        - '35173' # Chromium debugging port (optional)
+    volumes:
+      - 'settings:/data' # Only required if using PERSISTENT flag (see below)
