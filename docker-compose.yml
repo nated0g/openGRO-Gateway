@@ -3,7 +3,7 @@ volumes:
     node-red-data:
     influxdb-data:
     settings:
-    grafana-dashboards:
+    grafana-data:
 services:
   influxdb:
     build: influxdb
@@ -43,7 +43,7 @@ services:
        - influxdb
     restart: always
     volumes:
-      - 'grafana-dashboards:/var/lib/grafana'
+      - 'grafana-data:/var/lib/grafana'
   mqtt:
     image: panuwitp/mosquitto-arm
     ports:
