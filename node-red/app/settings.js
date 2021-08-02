@@ -73,7 +73,7 @@ module.exports = {
     // By default, the Node-RED UI is available at http://localhost:1880/
     // The following property can be used to specifiy a different root path.
     // If set to false, this is disabled.
-    //httpAdminRoot: '/admin',
+    httpAdminRoot: '/admin',
 
     // Some nodes, such as HTTP In, can be used to listen for incoming http requests.
     // By default, these are served relative to '/'. The following property
@@ -88,7 +88,7 @@ module.exports = {
     // When httpAdminRoot is used to move the UI to a different root path, the
     // following property can be used to identify a directory of static content
     // that should be served at http://localhost:1880/.
-    //httpStatic: '/home/nol/node-red-static/',
+    httpStatic: '/data/static/',
 
     // The maximum size of HTTP request that will be accepted by the runtime api.
     // Default: 5mb
@@ -118,7 +118,7 @@ module.exports = {
     // the static content (httpStatic), the following properties can be used.
     // The pass field is a bcrypt hash of the password.
     // See http://nodered.org/docs/security.html#generating-the-password-hash
-    httpNodeAuth: {user:"admin",pass:"$2b$08$6UgIxeBP.Lz4/2MY4HhLq..WoANo5rMK8Z0eNz.PdhteDWoFqLaia"},
+    httpNodeAuth: { user: "admin", pass: "$2b$08$6UgIxeBP.Lz4/2MY4HhLq..WoANo5rMK8Z0eNz.PdhteDWoFqLaia" },
     //httpStaticAuth: {user:"user",pass:"$2a$08$zZWtXTja0fB1pzD4sHCMyOCMYz2Z6dNbM6tl8sJogENOMcxWV9DN."},
 
     // The following property can be used to enable HTTPS
@@ -174,6 +174,14 @@ module.exports = {
     // can be accessed in a function block as:
     //    context.global.os
 
+    contextStorage: {
+        default: {
+            module: "localfilesystem",
+            config: {
+                dir: "/data"
+            }
+        }
+    },
     functionGlobalContext: {
         process: process,
         os: require('os'),
@@ -193,9 +201,9 @@ module.exports = {
             favicon: "/usr/src/app/assets/favicon.ico"
         },
         header: {
-            title: "balena Node-RED",
-            image: "/usr/src/app/assets/logo.png", // or null to remove image
-            url: "https://balena.io"
+            title: "openGrow Node-RED",
+            image: null, // or null to remove image
+            url: "http://opengro.io"
         },
         login: {
             image: "/usr/src/app/assets/logo.png" // a 256x256 image
