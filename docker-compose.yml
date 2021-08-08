@@ -4,6 +4,7 @@ volumes:
     influxdb-data:
     settings:
     grafana-data:
+    telegraf-data:
 services:
   influxdb:
     build: influxdb
@@ -35,6 +36,8 @@ services:
     environment:
        - interval=60s
        - flush_interval=60s
+    volumes:
+      - 'telegraf-data:/etc/telegraf'
   grafana:
     build: grafana 
     ports:
