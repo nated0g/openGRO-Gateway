@@ -5,6 +5,7 @@ volumes:
     settings:
     grafana-data:
     telegraf-data:
+    dnsmasq-conf:
 services:
   influxdb:
     build: influxdb
@@ -99,3 +100,13 @@ services:
         - '35173' # Chromium debugging port (optional)
     volumes:
       - 'settings:/data' # Only required if using PERSISTENT flag (see below)
+
+#TODO Change to rpi-dhcpd?  or look into forking dnsmasq for arm64
+
+  dnsmasq:
+    image: outlyernet/dnsmasq-multiarch
+    volumes:
+      - 'dnsmasq-conf:/etc/dnsmasq.conf'
+    ports:
+      - '53:53/udp'
+      - '5380:8080'
