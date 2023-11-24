@@ -1,9 +1,8 @@
 # openGRO-Gateway
 
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
-openGRO is an open source grow room management platform.  This piece is intended to be deployed on a Raspberry Pi or similar device, using [balenaOS](https://github.com/balena-os).
+openGRO is an open source CEA (Controlled Environment Agriculture) platform.  This gateway is intended to be deployed on a Raspberry Pi or similar device, using [balenaOS](https://github.com/balena-os).
 
 This consists of:
 * Grafana for building monitoring dashboards 
